@@ -1,0 +1,26 @@
+{
+  "name": "entregable1_grupo9",
+  "version": "1.0.0",
+  "description": "API REST de usuarios y mascotas con Express, persistencia en archivos JSON, carga de imágenes con Multer y archivos estáticos",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "keywords": [
+    "express",
+    "multer",
+    "api-rest",
+    "nodejs"
+  ],
+  "author": "Grupo 9",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "multer": "^2.5.0"
+  }
+}

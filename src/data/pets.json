@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "especie": "perro",
+    "color": "negro con blanco",
+    "edad": 4,
+    "sexo": "macho",
+    "img": [
+      "/img/pets/pet-1793200603248-ecaf97c23f3f.jpg",
+      "/img/pets/pet-1793200603249-d9f3434956ae.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "especie": "Gato",
+    "color": "Amarillo",
+    "edad": 2,
+    "sexo": "hembra",
+    "img": [
+      "/img/pets/pet-1793201480593-5314e0d38244.avif",
+      "/img/pets/pet-1793201480594-c7f03ace484b.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "especie": "Michi",
+    "color": "Amarillo",
+    "edad": 6,
+    "sexo": "macho",
+    "img": [
+      "/img/pets/pet-1793238036658-7b0e9773bd44.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "especie": "Conejo",
+    "color": "Gris",
+    "edad": 1,
+    "sexo": "hembra",
+    "img": [
+      "/img/pets/pet-1793237912355-f79201dba7bb.webp"
+    ]
+  },
+  {
+    "id": 5,
+    "especie": "Conejo Domestico",
+    "color": "Blanco",
+    "edad": 2,
+    "sexo": "macho",
+    "img": [
+      "/img/pets/pet-1793237964751-5dea0e92411e.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "especie": "Loro",
+    "color": "Verde",
+    "edad": 5,
+    "sexo": "hembra",
+    "img": [
+      "/img/pets/pet-1793236193001-13c111eca7da.jpg"
+    ]
+  }
+]

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>API Pet Manager | Usuarios y Mascotas</title>
+    <meta name="description" content="Panel para registrar usuarios y mascotas.">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23e36f57'%3E%3Cellipse cx='12' cy='16' rx='5' ry='4.2'/%3E%3Cellipse cx='5.6' cy='10.4' rx='2.1' ry='2.7'/%3E%3Cellipse cx='18.4' cy='10.4' rx='2.1' ry='2.7'/%3E%3Cellipse cx='9' cy='5.6' rx='2.1' ry='2.8'/%3E%3Cellipse cx='15' cy='5.6' rx='2.1' ry='2.8'/%3E%3C/g%3E%3C/svg%3E">
+
+    <!-- Tipografías: Fraunces (títulos) y Nunito Sans (texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/styles.css?v=7">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ========================================= -->
+        <!-- BARRA LATERAL -->
+        <!-- ========================================= -->
+
+        <aside class="sidebar">
+
+            <a href="#inicio" class="brand" aria-label="API Pet Manager, ir al inicio">
+                <span class="brand__icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48">
+                        <g fill="#f6c3a8">
+                            <ellipse cx="22" cy="30" rx="10" ry="8.4"/>
+                            <ellipse cx="9.4" cy="19" rx="4.2" ry="5.4"/>
+                            <ellipse cx="34.6" cy="19" rx="4.2" ry="5.4"/>
+                            <ellipse cx="16" cy="9.6" rx="4.2" ry="5.6"/>
+                            <ellipse cx="28" cy="9.6" rx="4.2" ry="5.6"/>
+                        </g>
+                        <path d="M30 44c4-6 9-9 15-10" stroke="#9fbfa7" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                        <path d="M36 38c1-3 4-4 6-3-1 3-4 4-6 3Z" fill="#9fbfa7"/>
+                        <path d="M33 41c-1-3 1-6 3-6 1 3-1 5-3 6Z" fill="#9fbfa7"/>
+                    </svg>
+                </span>
+                <span class="brand__text">API Pet<br>Manager</span>
+            </a>
+
+            <nav class="nav" aria-label="Secciones">
+                <a href="#inicio" class="nav__link" data-nav="inicio">
+                    <span class="nav__icon" data-icon="home"></span>
+                    <span>Inicio</span>
+                </a>
+                <a href="#usuarios" class="nav__link" data-nav="usuarios">
+                    <span class="nav__icon" data-icon="users"></span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="#mascotas" class="nav__link" data-nav="mascotas">
+                    <span class="nav__icon" data-icon="paw"></span>
+                    <span>Mascotas</span>
+                </a>
+            </nav>
+
+            <!-- Decoración de hojas y huellas -->
+            <svg class="sidebar__leaves" viewBox="0 0 260 300" aria-hidden="true">
+                <g fill="none" stroke="#5f8a78" stroke-width="2" stroke-linecap="round" opacity=".55">
+                    <path d="M40 300C46 240 60 190 92 140"/>
+                    <path d="M150 300c-6-50-2-96 22-150"/>
+                    <path d="M0 260c30-6 60-24 82-52"/>
+                </g>
+                <g fill="#5f8a78" opacity=".45">
+                    <path d="M62 222c-18-6-26-22-22-36 16 4 26 20 22 36Z"/>
+                    <path d="M66 214c12-14 30-16 40-8-10 12-28 16-40 8Z"/>
+                    <path d="M78 178c-16-8-20-24-14-36 14 6 20 22 14 36Z"/>
+                    <path d="M82 170c12-12 28-12 36-4-10 10-26 12-36 4Z"/>
+                    <path d="M90 140c-6-14 0-28 12-32 6 14 0 28-12 32Z"/>
+                    <path d="M160 250c-16-8-22-24-16-36 14 6 22 22 16 36Z"/>
+                    <path d="M162 240c12-14 30-16 40-6-10 12-28 14-40 6Z"/>
+                    <path d="M164 196c-14-10-16-26-8-36 12 8 16 24 8 36Z"/>
+                    <path d="M168 188c14-10 30-8 36 2-12 8-28 8-36-2Z"/>
+                    <path d="M172 150c-4-14 4-28 16-30 4 14-4 26-16 30Z"/>
+                    <path d="M30 246c-14 4-28-2-32-14 14-4 28 2 32 14Z"/>
+                </g>
+                <g fill="#f3b79a" opacity=".75">
+                    <circle cx="214" cy="118" r="3.4"/>
+                    <circle cx="226" cy="104" r="2.6"/>
+                    <circle cx="120" cy="96" r="2.6"/>
+                    <circle cx="200" cy="140" r="2.2"/>
+                    <circle cx="112" cy="116" r="2"/>
+                </g>
+                <g fill="#f3b79a" opacity=".85" transform="translate(196 196) rotate(-14)">
+                    <ellipse cx="12" cy="16" rx="7" ry="6"/>
+                    <ellipse cx="2.4" cy="8" rx="3" ry="3.8"/>
+                    <ellipse cx="21.6" cy="8" rx="3" ry="3.8"/>
+                    <ellipse cx="7.6" cy="1" rx="3" ry="4"/>
+                    <ellipse cx="16.4" cy="1" rx="3" ry="4"/>
+                </g>
+                <g fill="#f3b79a" opacity=".6" transform="translate(110 230) rotate(18) scale(.7)">
+                    <ellipse cx="12" cy="16" rx="7" ry="6"/>
+                    <ellipse cx="2.4" cy="8" rx="3" ry="3.8"/>
+                    <ellipse cx="21.6" cy="8" rx="3" ry="3.8"/>
+                    <ellipse cx="7.6" cy="1" rx="3" ry="4"/>
+                    <ellipse cx="16.4" cy="1" rx="3" ry="4"/>
+                </g>
+            </svg>
+
+        </aside>
+
+
+        <!-- ========================================= -->
+        <!-- CONTENIDO -->
+        <!-- ========================================= -->
+
+        <main class="main">
+
+            <!-- Encabezado común: título de la vista + contadores -->
+            <header class="page-head">
+                <div>
+                    <h1 class="page-head__title" id="page-title">Cada historia empieza con una huella</h1>
+                    <p class="page-head__subtitle" id="page-subtitle">Registra usuarios y mascotas en un solo lugar.</p>
+                </div>
+
+                <div class="stats" aria-label="Resumen">
+                    <a href="#usuarios" class="stat stat--sage">
+                        <span class="stat__icon" data-icon="user"></span>
+                        <span>
+                            <strong id="stat-users">–</strong>
+                            <small>usuarios</small>
+                        </span>
+                    </a>
+                    <a href="#mascotas" class="stat stat--peach">
+                        <span class="stat__icon" data-icon="paw"></span>
+                        <span>
+                            <strong id="stat-pets">–</strong>
+                            <small>mascotas</small>
+                        </span>
+                    </a>
+                </div>
+            </header>
+
+
+            <!-- ===================================== -->
+            <!-- VISTA: INICIO -->
+            <!-- ===================================== -->
+
+            <section class="view" id="view-inicio" hidden>
+
+                <div class="hero hero--scene" aria-label="Ilustración animada de mascotas en un parque">
+
+                    <!-- Nubes -->
+                    <svg class="cloud cloud--1" viewBox="0 0 120 50" aria-hidden="true"><path d="M20 44h82a16 16 0 0 0 0-32 22 22 0 0 0-41-6 18 18 0 0 0-31 10A14 14 0 0 0 20 44Z"/></svg>
+                    <svg class="cloud cloud--2" viewBox="0 0 120 50" aria-hidden="true"><path d="M20 44h82a16 16 0 0 0 0-32 22 22 0 0 0-41-6 18 18 0 0 0-31 10A14 14 0 0 0 20 44Z"/></svg>
+                    <svg class="cloud cloud--3" viewBox="0 0 120 50" aria-hidden="true"><path d="M20 44h82a16 16 0 0 0 0-32 22 22 0 0 0-41-6 18 18 0 0 0-31 10A14 14 0 0 0 20 44Z"/></svg>
+
+                    <!-- Sol -->
+                    <span class="sun" aria-hidden="true"></span>
+
+                    <!-- Colinas -->
+                    <svg class="hills" viewBox="0 0 1200 170" preserveAspectRatio="none" aria-hidden="true">
+                        <path class="hill-back" d="M0 90C160 40 300 40 460 80s300 50 470 6c120-30 200-30 270-12V170H0Z"/>
+                        <path class="hill-front" d="M0 120c180-36 380-40 600-12s420 30 600-4V170H0Z"/>
+                    </svg>
+
+                    <!-- Florecitas -->
+                    <span class="flower" style="left:9%;bottom:44px"></span>
+                    <span class="flower" style="left:21%;bottom:30px;--c:#f6c3a8"></span>
+                    <span class="flower" style="left:78%;bottom:38px;--c:#f6c3a8"></span>
+                    <span class="flower" style="left:90%;bottom:50px"></span>
+
+                    <!-- Ilustración principal -->
+                    <img class="hero__art" src="/img/ui/mascotas.webp" alt="Ilustración de un perro, un gato, un hámster y un pájaro juntos">
+
+                    <!-- Corazones que suben -->
+                    <span class="heart heart--1" aria-hidden="true">♥</span>
+                    <span class="heart heart--2" aria-hidden="true">♥</span>
+                    <span class="heart heart--3" aria-hidden="true">♥</span>
+
+                    <!-- Huellas que deja el perrito -->
+                    <div class="trail" aria-hidden="true">
+                        <span class="trail-paw" style="left:6%;bottom:22px;animation-delay:2.30s;--r:102deg"></span>
+                        <span class="trail-paw" style="left:13%;bottom:10px;animation-delay:3.58s;--r:78deg"></span>
+                        <span class="trail-paw" style="left:20%;bottom:22px;animation-delay:4.85s;--r:102deg"></span>
+                        <span class="trail-paw" style="left:27%;bottom:10px;animation-delay:6.13s;--r:78deg"></span>
+                        <span class="trail-paw" style="left:34%;bottom:22px;animation-delay:7.41s;--r:102deg"></span>
+                        <span class="trail-paw" style="left:41%;bottom:10px;animation-delay:8.68s;--r:78deg"></span>
+                        <span class="trail-paw" style="left:48%;bottom:22px;animation-delay:9.96s;--r:102deg"></span>
+                        <span class="trail-paw" style="left:55%;bottom:10px;animation-delay:11.24s;--r:78deg"></span>
+                        <span class="trail-paw" style="left:62%;bottom:22px;animation-delay:12.51s;--r:102deg"></span>
+                        <span class="trail-paw" style="left:69%;bottom:10px;animation-delay:13.79s;--r:78deg"></span>
+                        <span class="trail-paw" style="left:76%;bottom:22px;animation-delay:15.07s;--r:102deg"></span>
+                        <span class="trail-paw" style="left:83%;bottom:10px;animation-delay:16.34s;--r:78deg"></span>
+                        <span class="trail-paw" style="left:90%;bottom:22px;animation-delay:17.62s;--r:102deg"></span>
+                    </div>
+
+                    <!-- Persona paseando al perrito -->
+                    <div class="walker" aria-hidden="true">
+                        <svg class="walk-scene" viewBox="0 0 240 158">
+
+                            <!-- Sombras -->
+                            <ellipse class="dog-shadow" cx="46" cy="152" rx="26" ry="4"/>
+                            <ellipse class="dog-shadow" cx="162" cy="152" rx="40" ry="4"/>
+
+                            <!-- Persona -->
+                            <g class="walker-bob">
+                                <!-- pierna de atrás -->
+                                <g class="leg leg--b">
+                                    <rect x="38" y="92" width="11" height="54" rx="5.5" fill="#2f4a5c"/>
+                                    <ellipse cx="47" cy="147" rx="9" ry="4.5" fill="#1b2a2c"/>
+                                </g>
+                                <!-- brazo de atrás -->
+                                <g class="leg leg--a">
+                                    <rect x="38" y="52" width="9" height="36" rx="4.5" fill="#d9773f"/>
+                                    <circle cx="42.5" cy="89" r="5" fill="#f2bf98"/>
+                                </g>
+                                <!-- torso -->
+                                <rect x="29" y="46" width="32" height="52" rx="13" fill="#ef8f4f"/>
+                                <path d="M36 50c3 4 13 4 17 0" stroke="#d9773f" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                <!-- pierna de adelante -->
+                                <g class="leg leg--a">
+                                    <rect x="40" y="92" width="11" height="54" rx="5.5" fill="#3b5b70"/>
+                                    <ellipse cx="49" cy="147" rx="9" ry="4.5" fill="#24343a"/>
+                                </g>
+                                <!-- cabeza -->
+                                <g class="person-head">
+                                    <rect x="40" y="38" width="10" height="10" rx="3" fill="#f2bf98"/>
+                                    <circle cx="46" cy="28" r="14" fill="#f6c7a1"/>
+                                    <path d="M32 26c-1-12 8-18 17-17 8 1 12 6 11 12-5-3-10-3-15 0-4-2-8 0-9 5Z" fill="#8a5a3c"/>
+                                    <circle cx="33" cy="29" r="3.2" fill="#f2bf98"/>
+                                    <circle class="dog-eye" cx="54" cy="27" r="1.8" fill="#1b2a2c"/>
+                                    <path d="M53 34c2 1.5 4 1.5 6 0" stroke="#1b2a2c" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+                                </g>
+                                <!-- brazo que sostiene la correa -->
+                                <g class="leash-arm">
+                                    <path d="M50 54c8 6 16 14 24 22" stroke="#ef8f4f" stroke-width="9" stroke-linecap="round" fill="none"/>
+                                    <circle cx="76" cy="78" r="5" fill="#f2bf98"/>
+                                </g>
+                            </g>
+
+                            <!-- Correa -->
+                            <path class="leash" d="M77 78C120 112 150 112 188 100" fill="none" stroke="#e36f57" stroke-width="2.4" stroke-linecap="round"/>
+
+                            <!-- Perrito -->
+                            <g transform="translate(100 66)">
+                                <g class="dog-body">
+                                    <path class="dog-tail" d="M26 38c-8-2-13-10-12-20 0-3 4-3 4 0 0 7 4 12 10 13Z" fill="#7d4f33"/>
+                                    <g class="leg leg--far leg--a"><rect x="38" y="46" width="9" height="28" rx="4.5" fill="#7d4f33"/></g>
+                                    <g class="leg leg--far leg--b"><rect x="80" y="46" width="9" height="28" rx="4.5" fill="#7d4f33"/></g>
+                                    <ellipse cx="62" cy="44" rx="34" ry="16" fill="#9a6644"/>
+                                    <ellipse cx="64" cy="52" rx="24" ry="7" fill="#b98059" opacity=".55"/>
+                                    <g class="leg leg--b"><rect x="30" y="48" width="10" height="28" rx="5" fill="#9a6644"/></g>
+                                    <g class="leg leg--a"><rect x="72" y="48" width="10" height="28" rx="5" fill="#9a6644"/></g>
+                                    <g class="dog-head">
+                                        <rect x="84" y="34" width="12" height="7" rx="3" fill="#e36f57"/>
+                                        <circle cx="90" cy="43" r="3" fill="#f2c94c"/>
+                                        <circle cx="100" cy="28" r="16" fill="#9a6644"/>
+                                        <ellipse cx="113" cy="34" rx="10" ry="7.5" fill="#f1dcc4"/>
+                                        <ellipse cx="121" cy="31" rx="3.6" ry="3" fill="#1b2a2c"/>
+                                        <path d="M114 38c0 4 2 6 4 6s3-2 3-5" fill="#e36f57"/>
+                                        <circle class="dog-eye" cx="104" cy="23" r="2.4" fill="#1b2a2c"/>
+                                        <path class="dog-ear" d="M92 14c-8 0-12 8-11 18 1 6 7 6 9 1 2-6 3-13 2-19Z" fill="#6b4129"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+
+                </div>
+
+                <div class="quick-actions">
+                    <a href="#nuevo-usuario" class="action-card">
+                        <span class="action-card__icon" data-icon="user"></span>
+                        <span class="action-card__text">
+                            <strong>Registrar usuario</strong>
+                            <small>Agrega un nuevo usuario al sistema.</small>
+                        </span>
+                        <span class="action-card__chev" data-icon="chevR"></span>
+                    </a>
+                    <a href="#nueva-mascota" class="action-card action-card--accent">
+                        <span class="action-card__icon" data-icon="paw"></span>
+                        <span class="action-card__text">
+                            <strong>Registrar mascota</strong>
+                            <small>Agrega una nueva mascota al sistema.</small>
+                        </span>
+                        <span class="action-card__chev" data-icon="chevR"></span>
+                    </a>
+                </div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- VISTA: USUARIOS -->
+            <!-- ===================================== -->
+
+            <section class="view" id="view-usuarios" hidden>
+
+                <div class="toolbar">
+                    <label class="search">
+                        <span data-icon="search"></span>
+                        <input type="search" id="search-usuarios" placeholder="Buscar por nombre, usuario o ID" autocomplete="off">
+                    </label>
+
+                    <div class="toggle" role="group" aria-label="Tipo de vista">
+                        <button type="button" class="toggle__btn" data-viewmode="cards" data-target="usuarios" aria-label="Ver como tarjetas"><span data-icon="grid"></span><span>Tarjetas</span></button>
+                        <button type="button" class="toggle__btn" data-viewmode="list" data-target="usuarios" aria-label="Ver como lista"><span data-icon="list"></span><span>Lista</span></button>
+                    </div>
+
+                    <a href="#nuevo-usuario" class="btn btn--primary"><span data-icon="plus"></span> Nuevo usuario</a>
+                </div>
+
+                <p class="search-note" id="note-usuarios" hidden></p>
+
+                <div id="list-usuarios" class="records" aria-live="polite"></div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- VISTA: MASCOTAS -->
+            <!-- ===================================== -->
+
+            <section class="view" id="view-mascotas" hidden>
+
+                <div class="toolbar">
+                    <label class="search">
+                        <span data-icon="search"></span>
+                        <input type="search" id="search-mascotas" placeholder="Buscar por especie, color, sexo o ID" autocomplete="off">
+                    </label>
+
+                    <div class="toggle" role="group" aria-label="Tipo de vista">
+                        <button type="button" class="toggle__btn" data-viewmode="cards" data-target="mascotas" aria-label="Ver como tarjetas"><span data-icon="grid"></span><span>Tarjetas</span></button>
+                        <button type="button" class="toggle__btn" data-viewmode="list" data-target="mascotas" aria-label="Ver como lista"><span data-icon="list"></span><span>Lista</span></button>
+                    </div>
+
+                    <a href="#nueva-mascota" class="btn btn--accent"><span data-icon="plus"></span> Nueva mascota</a>
+                </div>
+
+                <p class="search-note" id="note-mascotas" hidden></p>
+
+                <div id="list-mascotas" class="records" aria-live="polite"></div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- VISTA: FORMULARIO DE USUARIO -->
+            <!-- ===================================== -->
+
+            <section class="view" id="view-form-usuario" hidden>
+
+                <div class="form-layout">
+
+                    <form class="panel" id="form-usuario" novalidate>
+
+                        <div class="panel__head">
+                            <span class="panel__icon" data-icon="user"></span>
+                            <div>
+                                <h2 id="form-usuario-title">Nuevo usuario</h2>
+                                <p id="form-usuario-sub">Completa la información del usuario.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-error" id="form-usuario-error" role="alert" hidden></div>
+
+                        <div class="fields">
+                            <div class="field">
+                                <label for="u-firstname">Nombre</label>
+                                <input id="u-firstname" name="firstname" type="text" placeholder="Ej. Laura" autocomplete="given-name" maxlength="40">
+                                <small class="field__error"></small>
+                            </div>
+
+                            <div class="field">
+                                <label for="u-lastname">Apellido</label>
+                                <input id="u-lastname" name="lastname" type="text" placeholder="Ej. Gómez" autocomplete="family-name" maxlength="40">
+                                <small class="field__error"></small>
+                            </div>
+
+                            <div class="field">
+                                <label for="u-username">Usuario</label>
+                                <input id="u-username" name="username" type="text" placeholder="Ej. laura.gomez" autocomplete="username" maxlength="60">
+                                <small class="field__error"></small>
+                            </div>
+
+                            <div class="field">
+                                <label for="u-password">Contraseña</label>
+                                <div class="input-icon">
+                                    <input id="u-password" name="password" type="password" placeholder="Mínimo 4 caracteres" autocomplete="new-password">
+                                    <button type="button" class="input-icon__btn" id="toggle-password" aria-label="Mostrar contraseña"><span data-icon="eye"></span></button>
+                                </div>
+                                <small class="field__hint" id="password-hint">Se guarda cifrada, nunca en texto plano.</small>
+                                <small class="field__error"></small>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Foto de perfil <span class="optional">(opcional)</span></label>
+                            <div class="dropzone" id="dz-usuario"></div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--ghost" data-form-reset>Limpiar formulario</button>
+                            <button type="submit" class="btn btn--primary" id="submit-usuario">
+                                <span data-icon="check"></span>
+                                <span class="btn__label">Registrar usuario</span>
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <aside class="panel panel--preview panel--preview-sage">
+                        <div class="panel__head panel__head--small">
+                            <span class="panel__icon panel__icon--plain" data-icon="eye"></span>
+                            <div>
+                                <h2>Vista previa</h2>
+                                <p>Así se verá la tarjeta del usuario.</p>
+                            </div>
+                        </div>
+                        <div id="preview-usuario"></div>
+                    </aside>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- VISTA: FORMULARIO DE MASCOTA -->
+            <!-- ===================================== -->
+
+            <section class="view" id="view-form-mascota" hidden>
+
+                <div class="form-layout">
+
+                    <form class="panel" id="form-mascota" novalidate>
+
+                        <div class="panel__head">
+                            <span class="panel__icon panel__icon--peach" data-icon="paw"></span>
+                            <div>
+                                <h2 id="form-mascota-title">Nueva mascota</h2>
+                                <p id="form-mascota-sub">Completa la información de la mascota.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-error" id="form-mascota-error" role="alert" hidden></div>
+
+                        <div class="fields">
+                            <div class="field">
+                                <label for="p-especie">Especie</label>
+                                <div class="select">
+                                    <select id="p-especie" name="especie">
+                                        <option value="">Selecciona una especie</option>
+                                        <option>Perro</option>
+                                        <option>Gato</option>
+                                        <option>Conejo</option>
+                                        <option>Hámster</option>
+                                        <option>Loro</option>
+                                        <option>Pez</option>
+                                        <option value="__otra">Otra…</option>
+                                    </select>
+                                </div>
+                                <input id="p-especie-otra" type="text" class="mt-8" placeholder="Escribe la especie" maxlength="40" hidden>
+                                <small class="field__error"></small>
+                            </div>
+
+                            <div class="field">
+                                <label for="p-color">Color</label>
+                                <input id="p-color" name="color" type="text" placeholder="Ej. café y blanco" maxlength="60">
+                                <small class="field__error"></small>
+                            </div>
+
+                            <div class="field">
+                                <label for="p-edad">Edad</label>
+                                <input id="p-edad" name="edad" type="number" min="0" max="60" step="1" inputmode="numeric" placeholder="Edad en años">
+                                <small class="field__error"></small>
+                            </div>
+
+                            <div class="field">
+                                <label for="p-sexo">Sexo</label>
+                                <div class="select">
+                                    <select id="p-sexo" name="sexo">
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="macho">Macho</option>
+                                        <option value="hembra">Hembra</option>
+                                    </select>
+                                </div>
+                                <small class="field__error"></small>
+                            </div>
+                        </div>
+
+                        <!-- Solo en edición: fotos actuales -->
+                        <div class="current-photos" id="current-photos" hidden>
+                            <div class="current-photos__head">
+                                <span>Fotos actuales</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="replace-images">
+                                    <span class="switch__track"></span>
+                                    <span>Reemplazar por las nuevas</span>
+                                </label>
+                            </div>
+                            <div class="thumbs" id="current-photos-list"></div>
+                        </div>
+
+                        <div class="field">
+                            <label>Fotografías <span class="optional">(opcional)</span></label>
+                            <div class="dropzone" id="dz-mascota"></div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--ghost" data-form-reset>Limpiar formulario</button>
+                            <button type="submit" class="btn btn--accent" id="submit-mascota">
+                                <span data-icon="paw"></span>
+                                <span class="btn__label">Registrar mascota</span>
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <aside class="panel panel--preview">
+                        <div class="panel__head panel__head--small">
+                            <span class="panel__icon panel__icon--plain" data-icon="eye"></span>
+                            <div>
+                                <h2>Vista previa</h2>
+                                <p>Así se verá la información de la mascota.</p>
+                            </div>
+                        </div>
+                        <div id="preview-mascota"></div>
+                    </aside>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- MODAL: CONFIRMAR ELIMINACIÓN -->
+    <!-- ========================================= -->
+
+    <div class="modal" id="modal-delete" hidden>
+        <div class="modal__backdrop" data-close></div>
+        <div class="modal__box modal__box--small" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-text">
+            <div class="delete-media" id="delete-media"></div>
+            <h2 id="delete-title">¿Eliminar este registro?</h2>
+            <p id="delete-text">Esta acción no se puede deshacer.</p>
+            <div class="modal__actions">
+                <button type="button" class="btn btn--ghost" data-close>Cancelar</button>
+                <button type="button" class="btn btn--danger" id="delete-confirm"><span data-icon="trash"></span> Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- MODAL: FICHA DEL REGISTRO -->
+    <!-- ========================================= -->
+
+    <div class="modal" id="modal-ficha" hidden>
+        <div class="modal__backdrop" data-close></div>
+        <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="ficha-title">
+            <button type="button" class="modal__close" data-close aria-label="Cerrar"><span data-icon="x"></span></button>
+            <div id="ficha-content"></div>
+        </div>
+    </div>
+
+
+    <!-- Notificaciones -->
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+
+    <script src="/js/app.js?v=7" type="module"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "firstname": "Fernandito",
+    "lastname": "Cuellar",
+    "username": "Cuellar@gmail.com",
+    "password": "bb4ccaa0eb5042efafcea81cb0a09a5a:f852417a9326623ccafaeda81b947623106099c2118d714129a192983233eb93c1f1dcb9f9415d0844866b05e789fc51d46b9ee94685de0f57768f294df29500",
+    "avatar": "/img/users/avatar-1793156134076-38248aaf33d8.png"
+  },
+  {
+    "id": 2,
+    "firstname": "Felipe",
+    "lastname": "Cuellar",
+    "username": "Felipe@gmail.com",
+    "password": "701afcfce756f91d54f6f01b901543f6:1beb772bdc8e54dc390b80aed358676bbd1c2c9fd472dd7ce73cb323d33f5e7c81d66324e3a658da173b9c1a7f0efe640d7a077229f36420c1ff7bafee633010",
+    "avatar": "/img/users/avatar-1793200070411-96cffa395f88.jpg"
+  },
+  {
+    "id": 3,
+    "firstname": "Yuliet",
+    "lastname": "Rojas",
+    "username": "Rojas@gmail.com",
+    "password": "6f83d76ab48604a9c5780d013bcdd1be:cfed670ce1d99c2d70fe1d831ab3a97fab03228776c647a629f93785ed72ee069bb5d36dca31eb94911481e779d7f3e8484e42cc81cfdaa4edd1547d0c58e9ac",
+    "avatar": "/img/users/avatar-1793200119913-f225bbd62b6d.webp"
+  },
+  {
+    "id": 4,
+    "firstname": "Andres",
+    "lastname": "Ramiirez",
+    "username": "Ander@gmail.com",
+    "password": "66b5e35b9a6371cfd5cd844b96e64aab:7944d3d305da8a881c2b33437eea406fe48b43e2e7486828b56c08533abe5e44b1b77516a77a8ccad2aafbc7a5d3feb2ca01792bac4283aea01af02a0adba1f7",
+    "avatar": "/img/users/avatar-1793201553263-acf38cb7e067.jpg"
+  }
+]
