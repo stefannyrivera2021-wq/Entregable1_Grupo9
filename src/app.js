@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 
 import usersRouter from "./routes/users.router.js";
 import petsRouter from "./routes/pets.router.js";
+import { IS_VERCEL, TMP_IMG_DIR } from "./utils/storage.js";
 
 const app = express();
 
@@ -22,6 +23,28 @@ app.use(
     })
 );
 
+
+
+// En Vercel, las imágenes subidas viven en /tmp: se sirven con esta ruta.
+// (Las imágenes originales de public/ las sirve el CDN de Vercel.)
+if (IS_VERCEL) {
+
+    app.get("/img/:folder/:file", (req, res, next) => {
+
+        const { folder, file } = req.params;
+
+        if (!["users", "pets"].includes(folder)) {
+            return next();
+        }
+
+        res.sendFile(
+            path.join(TMP_IMG_DIR, folder, path.basename(file)),
+            error => {
+                if (error) next();
+            }
+        );
+    });
+}
 
 
 app.use(

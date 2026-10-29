@@ -7,6 +7,11 @@ import {
     uploadPet
 } from "../middlewares/multer.middleware.js";
 
+import {
+    getDataFile,
+    getUploadedFilePath
+} from "../utils/storage.js";
+
 
 const __filename =
     fileURLToPath(
@@ -23,11 +28,8 @@ const router =
     express.Router();
 
 
-const petsFile =
-    path.join(
-        __dirname,
-        "../data/pets.json"
-    );
+// Los JSON se leen/escriben donde indique storage.js
+// (src/data en local, /tmp en Vercel)
 
 
 // =======================================
@@ -76,7 +78,7 @@ async function readPets() {
 
     const data =
         await fs.readFile(
-            petsFile,
+            await getDataFile("pets.json"),
             "utf8"
         );
 
@@ -95,7 +97,7 @@ async function readPets() {
 async function writePets(pets) {
 
     await fs.writeFile(
-        petsFile,
+        await getDataFile("pets.json"),
 
         JSON.stringify(
             pets,
@@ -110,17 +112,7 @@ async function writePets(pets) {
 
 function getPublicFilePath(fileUrl) {
 
-    return path.join(
-
-        __dirname,
-
-        "../../public",
-
-        fileUrl.replace(
-            /^\/+/,
-            ""
-        )
-    );
+    return getUploadedFilePath(fileUrl);
 }
 
 

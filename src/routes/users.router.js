@@ -8,6 +8,11 @@ import {
 } from "../middlewares/multer.middleware.js";
 
 import {
+    getDataFile,
+    getUploadedFilePath
+} from "../utils/storage.js";
+
+import {
     hashPassword
 } from "../utils/crypto.js";
 
@@ -22,11 +27,8 @@ const router =
     express.Router();
 
 
-const usersFile =
-    path.join(
-        __dirname,
-        "../data/users.json"
-    );
+// Los JSON se leen/escriben donde indique storage.js
+// (src/data en local, /tmp en Vercel)
 
 
 // =======================================
@@ -65,7 +67,7 @@ async function readUsers() {
 
     const data =
         await fs.readFile(
-            usersFile,
+            await getDataFile("users.json"),
             "utf8"
         );
 
@@ -80,7 +82,7 @@ async function readUsers() {
 async function writeUsers(users) {
 
     await fs.writeFile(
-        usersFile,
+        await getDataFile("users.json"),
         JSON.stringify(
             users,
             null,
@@ -104,14 +106,7 @@ function hidePassword(user) {
 
 function getPublicFilePath(fileUrl) {
 
-    return path.join(
-        __dirname,
-        "../../public",
-        fileUrl.replace(
-            /^\/+/,
-            ""
-        )
-    );
+    return getUploadedFilePath(fileUrl);
 }
 
 

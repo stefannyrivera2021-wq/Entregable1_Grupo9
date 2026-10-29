@@ -39,7 +39,8 @@ El proyecto implementa persistencia asíncrona, hashing de contraseñas, carga d
 │   │   ├── users.router.js
 │   │   └── pets.router.js
 │   ├── utils/
-│   │   └── crypto.js
+│   │   ├── crypto.js
+│   │   └── storage.js    (rutas de guardado: local o Vercel)
 │   └── data/
 │       ├── users.json
 │       └── pets.json
@@ -326,6 +327,16 @@ Al abrir `http://localhost:8080` se carga un panel que consume la API:
 ## Pruebas
 
 Los endpoints de la API pueden probarse utilizando Postman (en *Body* elegir `form-data` y marcar como *File* los campos `avatar` e `img`) o desde el panel web.
+
+## Despliegue en Vercel
+
+El proyecto se despliega en Vercel sin configuración adicional: Vercel detecta Express en `src/app.js` (exportado con `export default app`) y sirve la carpeta `public/` desde su CDN.
+
+1. Entrar a [vercel.com](https://vercel.com) con la cuenta de GitHub.
+2. **Add New → Project** e importar este repositorio.
+3. Dejar la configuración por defecto (*Framework Preset: Express*) y presionar **Deploy**.
+
+**Importante:** en Vercel el sistema de archivos es de solo lectura, excepto la carpeta temporal `/tmp`. Por eso `src/utils/storage.js` hace que, solo en Vercel, los JSON y las imágenes subidas se guarden en `/tmp`. La API funciona completa (crear, editar y eliminar), pero esos cambios son **temporales**: se pierden cuando Vercel reinicia la función o se hace un nuevo despliegue, y se vuelve a los datos originales del repositorio. En local (`npm start`) todo se guarda de forma permanente en `src/data` y `public/img`, como pide el enunciado.
 
 ## Autores
 

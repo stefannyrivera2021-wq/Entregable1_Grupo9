@@ -4,6 +4,8 @@ import fs from "fs/promises";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 
+import { getUploadDir } from "../utils/storage.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -32,11 +34,8 @@ function createDestination(folder) {
 
     return async function (req, file, cb) {
 
-        const destination = path.join(
-            __dirname,
-            "../../public/img",
-            folder
-        );
+        // public/img/<carpeta> en local, /tmp en Vercel
+        const destination = getUploadDir(folder);
 
         try {
             await fs.mkdir(destination, { recursive: true });
